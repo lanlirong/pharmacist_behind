@@ -1,9 +1,9 @@
 <?php
-namespace app\index\controller;
+namespace app\index\controller\consult;
 use think\Db;
 use think\Controller;
-use app\index\model\Question as QuestionModel;
-use app\index\model\Recommend as RecommendModel;
+use app\index\model\consult\Question as QuestionModel;
+use app\index\model\consult\Recommend as RecommendModel;
 class Index extends Controller
 {
 	

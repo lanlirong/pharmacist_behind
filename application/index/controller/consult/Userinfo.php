@@ -1,6 +1,5 @@
 <?php
-namespace app\index\controller;
-// use think\Db;
+namespace app\index\controller\consult;
 use think\Controller;
 use app\index\model\Userinfo as UserinfoModel;
 

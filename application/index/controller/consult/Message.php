@@ -1,9 +1,9 @@
 <?php
-namespace app\index\controller;
+namespace app\index\controller\consult;
 // use think\Db;
 use think\Controller;
-use app\index\model\Drugconsult_check as ConsultCheckModel;
-use app\index\model\Error as ErrorModel;
+use app\index\model\consult\Drugconsult_check as ConsultCheckModel;
+use app\index\model\consult\Error as ErrorModel;
 
 class Message extends Controller
 { 

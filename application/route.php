@@ -8,6 +8,9 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
+use think\Route;
+Route::rule('consult/detail/:id','index/consult.Index/detail');
+Route::rule('consult/recommend','index/consult.Index/recommend');
 
 return [
     '__pattern__' => [
