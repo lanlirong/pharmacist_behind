@@ -15,11 +15,11 @@ return [
     // 服务器地址
     'hostname'        => '49.235.220.14',
     // 数据库名
-    'database'        => 'drugconsult',
+    'database'        => 'pharmacist',
     // 用户名
-    'username'        => 'drugconsult',
+    'username'        => 'pharmacist',
     // 密码
-    'password'        => 'tmRBpy8FetD7nBb5',
+    'password'        => 'SxMZ7SrPPmpzjBtC',
     // 端口
     'hostport'        => '3306',
     // 连接dsn

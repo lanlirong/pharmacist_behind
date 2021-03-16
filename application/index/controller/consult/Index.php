@@ -1,6 +1,5 @@
 <?php
 namespace app\index\controller\consult;
-use think\Db;
 use think\Controller;
 use app\index\model\consult\Question as QuestionModel;
 use app\index\model\consult\Recommend as RecommendModel;
