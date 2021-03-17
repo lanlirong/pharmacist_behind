@@ -12,8 +12,10 @@ use think\Route;
 
 Route::rule('consult/detail/:id', 'index/consult.Index/detail');
 Route::rule('consult/recommend', 'index/consult.Index/recommend');
-
+// drug
 Route::rule('drug/list', 'index/drug.Index/getList');
+Route::rule('drug/one', 'index/drug.Index/getDrugByID');
+
 
 
 return [
