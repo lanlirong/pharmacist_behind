@@ -15,6 +15,7 @@ Route::rule('consult/recommend', 'index/consult.Index/recommend');
 // drug
 Route::rule('drug/list', 'index/drug.Index/getList');
 Route::rule('drug/one', 'index/drug.Index/getDrugByID');
+Route::rule('drug/filterList', 'index/drug.Index/getFilterList');
 
 
 
