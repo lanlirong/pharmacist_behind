@@ -9,7 +9,6 @@ use app\index\model\drug\Indications as IndicationsM;
 
 class Index extends Controller
 {
-
     public function getList()
     {
         $body = file_get_contents('php://input');
@@ -48,9 +47,17 @@ class Index extends Controller
             }
             $filterStr = substr($filterStr, 0, -3) . ")";
         }
-
-        $types = ['drug_name', 'drug_brand', 'bar_code', 'constituents', 'disease'];
-        $sql = "{$types[$params->type]} LIKE '%{$params->searchKey}%'" . $filterStr;
+        // 查询主治疾病时情况不一样
+        $IndicationsM = new IndicationsM();
+        if ($params->type == 4) {
+            $indications = $IndicationsM->where('disease', $params->searchKey)->select();
+            $ids = array_column($indications, 'id');
+            $idStr = "(" . join(',', $ids) . ")";
+            $sql = "id in " . $idStr . $filterStr;
+        } else {
+            $types = ['drug_name', 'drug_brand', 'bar_code', 'constituents'];
+            $sql = "{$types[$params->type]} LIKE '%{$params->searchKey}%'" . $filterStr;
+        }
         if ($params->orderType == "") {
             $order = "";
         } else {
@@ -59,7 +66,7 @@ class Index extends Controller
 
         $DrugM = new DrugM();
         $list = $DrugM->where($sql)->order($order)->paginate($params->size, false, [
-            'query' => request()->param(),
+            'page' =>  $params->page,
         ]);
         // 查询主治疾病
         $IndicationsM = new IndicationsM();
@@ -69,7 +76,7 @@ class Index extends Controller
             $list[$i]->mainDiseases = $temp;
         }
         $result = array(
-            // 'test' => $filterStr,
+            // 'test' => $ids,
             'data' => $list,
             'code' => 1,
             'msg' => "查询成功"
@@ -80,9 +87,19 @@ class Index extends Controller
     }
     public function getFilterList()
     {
-        $params = input('param.');
-        $types = ['drug_name', 'drug_brand', 'bar_code', 'constituents', 'disease'];
-        $sql = "{$types[$params['type']]} LIKE '%{$params['searchKey']}%'";
+        $body = file_get_contents('php://input');
+        $params = json_decode($body);
+        // 查询主治疾病时情况不一样
+        $IndicationsM = new IndicationsM();
+        if ($params->type == 4) {
+            $indications = $IndicationsM->where('disease', $params->searchKey)->select();
+            $ids = array_column($indications, 'id');
+            $idStr = "(" . join(',', $ids) . ")";
+            $sql = "id in " . $idStr;
+        } else {
+            $types = ['drug_name', 'drug_brand', 'bar_code', 'constituents'];
+            $sql = "{$types[$params->type]} LIKE '%{$params->searchKey}%'";
+        }
 
         $DrugM = new DrugM();
         $drug_type = $DrugM->where($sql)->group('drug_type')->field('drug_type, COUNT(drug_type) as count')->select();
@@ -122,9 +139,10 @@ class Index extends Controller
             // 查找主治疾病
             $IndicationsM = new IndicationsM();
             $indications = $IndicationsM->where('id', $params['id'])->select();
-            $temp = array_column($indications, 'disease');
-            $drug->mainDiseases = $temp;
-
+            if ($indications) {
+                $temp = array_column($indications, 'disease');
+                $drug->mainDiseases = $temp;
+            }
             if ($drug) {
                 $drug->picture = 'http://' . $_SERVER['SERVER_NAME'] . '/static' . $drug->picture;
 
@@ -142,6 +160,17 @@ class Index extends Controller
             }
         }
 
+        echo json_encode($result, JSON_UNESCAPED_UNICODE);
+    }
+    public function getDrugCount()
+    {
+        $DrugM = new DrugM();
+        $count = $DrugM->count();
+        $result = array(
+            'data' => $count,
+            'code' => 1,
+            'msg' => "查询成功"
+        );
         echo json_encode($result, JSON_UNESCAPED_UNICODE);
     }
 }

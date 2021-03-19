@@ -16,6 +16,7 @@ Route::rule('consult/recommend', 'index/consult.Index/recommend');
 Route::rule('drug/list', 'index/drug.Index/getList');
 Route::rule('drug/one', 'index/drug.Index/getDrugByID');
 Route::rule('drug/filterList', 'index/drug.Index/getFilterList');
+Route::rule('drug/count', 'index/drug.Index/getDrugCount');
 
 
 
