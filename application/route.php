@@ -22,6 +22,11 @@ Route::rule('interaction/list', 'index/interaction.Index/getList');
 Route::rule('interaction/one', 'index/interaction.Index/getOne');
 Route::rule('interaction/count', 'index/interaction.Index/getInteractionCount');
 
+// disease
+Route::rule('disease/list', 'index/disease.Index/getList');
+Route::rule('disease/one', 'index/disease.Index/getOne');
+Route::rule('disease/count', 'index/disease.Index/getDiseaseCount');
+
 
 return [
     '__pattern__' => [
