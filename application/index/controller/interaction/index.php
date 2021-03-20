@@ -67,4 +67,15 @@ class Index extends Controller
 
         echo json_encode($result, JSON_UNESCAPED_UNICODE);
     }
+    public function getInteractionCount()
+    {
+        $InteractionM = new InteractionM();
+        $count = $InteractionM->count();
+        $result = array(
+            'data' => $count,
+            'code' => 1,
+            'msg' => "查询成功"
+        );
+        echo json_encode($result, JSON_UNESCAPED_UNICODE);
+    }
 }

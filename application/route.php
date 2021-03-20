@@ -20,6 +20,7 @@ Route::rule('drug/count', 'index/drug.Index/getDrugCount');
 // interaction
 Route::rule('interaction/list', 'index/interaction.Index/getList');
 Route::rule('interaction/one', 'index/interaction.Index/getOne');
+Route::rule('interaction/count', 'index/interaction.Index/getInteractionCount');
 
 
 return [
