@@ -26,6 +26,12 @@ Route::rule('interaction/count', 'index/interaction.Index/getInteractionCount');
 Route::rule('disease/list', 'index/disease.Index/getList');
 Route::rule('disease/one', 'index/disease.Index/getOne');
 Route::rule('disease/count', 'index/disease.Index/getDiseaseCount');
+// consult 
+Route::rule('consult/list', 'index/consult.Index/getList');
+Route::rule('consult/one', 'index/consult.Index/getOne');
+Route::rule('consult/count', 'index/consult.Index/getConsultCount');
+Route::rule('consult/books', 'index/consult.Index/getBooks');
+
 
 
 return [
