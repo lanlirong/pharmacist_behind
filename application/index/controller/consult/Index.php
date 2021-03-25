@@ -13,23 +13,35 @@ class Index extends Controller
     $body = file_get_contents('php://input');
     $params = json_decode($body);
     $searchKey = $params->searchKey;
-    switch ($params->type) {
-      case 0:
-        $sql = "Q_content LIKE '%{$searchKey}%' or Q_answer LIKE '%{$searchKey}%'  ";
-        break;
-      case 1: // 书名
-        $sql = "B_name LIKE '%{$searchKey}%' ";
-        break;
-      default:
-        $sql = '';
-        break;
+    if ($params->way == 0) {
+      switch ($params->type) {
+        case 0:
+          $sql = "Q_content LIKE '%{$searchKey}%' or Q_answer LIKE '%{$searchKey}%'  or K_link LIKE '%{$searchKey}%'";
+          break;
+        case 1:  //问题名称
+          $sql = "Q_content LIKE '%{$searchKey}%' ";
+          break;
+        case 2: //回答内容
+          $sql = "Q_answer LIKE '%{$searchKey}%' ";
+          break;
+        case 3: //知识链接
+          $sql = "K_link LIKE '%{$searchKey}%' ";
+          break;
+        default:
+          $sql = '';
+          break;
+      }
+    } elseif ($params->way == 1) {
+      // 按书名
+      $sql = "B_ISBN like '%{$searchKey}%'";
     }
+
     $QuestionM = new QuestionM();
     $list = $QuestionM->where($sql)->paginate($params->size, false, [
-      'query' => $params->page,
+      'page' => $params->page,
     ]);
     $result = array(
-      // 'test' => $ids,
+      // 'test' => $params->page,
       'data' => $list,
       'code' => 1,
       'msg' => "查询成功"
@@ -52,6 +64,36 @@ class Index extends Controller
       $QuestionM = new QuestionM();
       // 每页数据集
       $list = $QuestionM->where('id', $id)->find();
+      // 拼接答案url
+      if ($list->isanswerUrl === 0) {
+        $answerUrl1s =  explode(',', $list->answerUrl1);
+        foreach ($answerUrl1s as $k => $v) {
+          $answerUrl1s[$k] = 'http://' . $_SERVER['SERVER_NAME'] . '/static/images/' . $v;
+        }
+        $list->answerUrl1 = $answerUrl1s;
+        if ($list->answerUrl2) {
+          $answerUrl2s =  explode(',', $list->answerUrl2);
+          foreach ($answerUrl2s as $k => $v) {
+            $answerUrl2s[$k] = 'http://' . $_SERVER['SERVER_NAME'] . '/static/images/' . $v;
+          }
+          $list->answerUrl2 = $answerUrl2s;
+        }
+      }
+      // 拼接链接url
+      if ($list->islinkUrl === 1) {
+        $linkUrl1s =  explode(',', $list->linkUrl1);
+        foreach ($linkUrl1s as $k => $v) {
+          $linkUrl1s[$k] = 'http://' . $_SERVER['SERVER_NAME'] . '/static/images/' . $v;
+        }
+        $list->linkUrl1 = $linkUrl1s;
+        if ($list->linkUrl2) {
+          $linkUrl2s =  explode(',', $list->linkUrl2);
+          foreach ($linkUrl2s as $k => $v) {
+            $linkUrl2s[$k] = 'http://' . $_SERVER['SERVER_NAME'] . '/static/images/' . $v;
+          }
+          $list->linkUrl2 = $linkUrl2s;
+        }
+      }
       if ($list) {
         $result = array(
           'data' => $list,
