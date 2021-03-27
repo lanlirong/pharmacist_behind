@@ -1,10 +1,10 @@
 <?php
 
-namespace app\index\controller\drug;
+namespace app\admin\controller\drug;
 
 use think\Controller;
-use app\index\model\drug\Drug as DrugM;
-use app\index\model\drug\Indications as IndicationsM;
+use app\admin\model\drug\Drug as DrugM;
+use app\admin\model\drug\Indications as IndicationsM;
 
 
 class Index extends Controller
@@ -13,51 +13,7 @@ class Index extends Controller
     {
         $body = file_get_contents('php://input');
         $params = json_decode($body);
-        // filter字符串拼接
-        $drug_type = $params->drug_type;
-        $nature_class = $params->nature_class;
-        $use_class = $params->use_class;
-        $manufacturer = $params->manufacturer;
-        $filterStr = '';
-        if (count($drug_type)) {
-            $filterStr =  $filterStr . 'and (';
-            for ($i = 0; $i < count($drug_type); $i++) {
-                $filterStr = $filterStr . "drug_type = '" . $drug_type[$i] . "' or ";
-            }
-            $filterStr = substr($filterStr, 0, -3) . ")";
-        }
-        if (count($nature_class)) {
-            $filterStr =  $filterStr . 'and (';
-            for ($i = 0; $i < count($nature_class); $i++) {
-                $filterStr = $filterStr . "nature_class = '" . $nature_class[$i] . "' or ";
-            }
-            $filterStr = substr($filterStr, 0, -3) . ")";
-        }
-        if (count($use_class)) {
-            $filterStr =  $filterStr . 'and (';
-            for ($i = 0; $i < count($use_class); $i++) {
-                $filterStr = $filterStr . "use_class = '" . $use_class[$i] . "' or ";
-            }
-            $filterStr = substr($filterStr, 0, -3) . ")";
-        }
-        if (count($manufacturer)) {
-            $filterStr =  $filterStr . 'and (';
-            for ($i = 0; $i < count($manufacturer); $i++) {
-                $filterStr = $filterStr . "manufacturer = '" . $manufacturer[$i] . "' or ";
-            }
-            $filterStr = substr($filterStr, 0, -3) . ")";
-        }
-        // 查询主治疾病时情况不一样
-        $IndicationsM = new IndicationsM();
-        if ($params->type == 4) {
-            $indications = $IndicationsM->where('disease', $params->searchKey)->select();
-            $ids = array_column($indications, 'id');
-            $idStr = "(" . join(',', $ids) . ")";
-            $sql = "id in " . $idStr . $filterStr;
-        } else {
-            $types = ['drug_name', 'drug_brand', 'bar_code', 'constituents'];
-            $sql = "{$types[$params->type]} LIKE '%{$params->searchKey}%'" . $filterStr;
-        }
+        $sql = "{$params->type} LIKE '%{$params->searchKey}%'";
         if ($params->orderType == "") {
             $order = "";
         } else {
@@ -76,12 +32,11 @@ class Index extends Controller
             $list[$i]->mainDiseases = $temp;
         }
         $result = array(
-            // 'test' => $ids,
+            // 'test' => $sql,
             'data' => $list,
             'code' => 1,
             'msg' => "查询成功"
         );
-
 
         echo json_encode($result, JSON_UNESCAPED_UNICODE);
     }

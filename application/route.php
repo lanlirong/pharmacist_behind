@@ -17,6 +17,9 @@ Route::rule('drug/list', 'index/drug.Index/getList');
 Route::rule('drug/one', 'index/drug.Index/getDrugByID');
 Route::rule('drug/filterList', 'index/drug.Index/getFilterList');
 Route::rule('drug/count', 'index/drug.Index/getDrugCount');
+
+Route::rule('admin/drug/list', 'admin/drug.Index/getList');
+Route::rule('admin/drug/one', 'admin/drug.Index/getDrugByID');
 // interaction
 Route::rule('interaction/list', 'index/interaction.Index/getList');
 Route::rule('interaction/one', 'index/interaction.Index/getOne');

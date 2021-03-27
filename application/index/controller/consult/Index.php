@@ -68,13 +68,13 @@ class Index extends Controller
       if ($list->isanswerUrl === 0) {
         $answerUrl1s =  explode(',', $list->answerUrl1);
         foreach ($answerUrl1s as $k => $v) {
-          $answerUrl1s[$k] = 'http://' . $_SERVER['SERVER_NAME'] . '/static/images/' . $v;
+          $answerUrl1s[$k] = 'http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER["SERVER_PORT"] . '/static/images/' . $v;
         }
         $list->answerUrl1 = $answerUrl1s;
         if ($list->answerUrl2) {
           $answerUrl2s =  explode(',', $list->answerUrl2);
           foreach ($answerUrl2s as $k => $v) {
-            $answerUrl2s[$k] = 'http://' . $_SERVER['SERVER_NAME'] . '/static/images/' . $v;
+            $answerUrl2s[$k] = 'http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER["SERVER_PORT"] . '/static/images/' . $v;
           }
           $list->answerUrl2 = $answerUrl2s;
         }
@@ -83,13 +83,13 @@ class Index extends Controller
       if ($list->islinkUrl === 1) {
         $linkUrl1s =  explode(',', $list->linkUrl1);
         foreach ($linkUrl1s as $k => $v) {
-          $linkUrl1s[$k] = 'http://' . $_SERVER['SERVER_NAME'] . '/static/images/' . $v;
+          $linkUrl1s[$k] = 'http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER["SERVER_PORT"] . '/static/images/' . $v;
         }
         $list->linkUrl1 = $linkUrl1s;
         if ($list->linkUrl2) {
           $linkUrl2s =  explode(',', $list->linkUrl2);
           foreach ($linkUrl2s as $k => $v) {
-            $linkUrl2s[$k] = 'http://' . $_SERVER['SERVER_NAME'] . '/static/images/' . $v;
+            $linkUrl2s[$k] = 'http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER["SERVER_PORT"] . '/static/images/' . $v;
           }
           $list->linkUrl2 = $linkUrl2s;
         }
