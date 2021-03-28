@@ -35,6 +35,13 @@ Route::rule('consult/one', 'index/consult.Index/getOne');
 Route::rule('consult/count', 'index/consult.Index/getConsultCount');
 Route::rule('consult/books', 'index/consult.Index/getBooks');
 
+// system
+Route::rule('admin/login', 'admin/system.User/login');
+Route::rule('admin/logout', 'admin/system.User/logout');
+
+Route::rule('admin/adminuser/list', 'admin/system.User/getList');
+
+
 
 
 return [
