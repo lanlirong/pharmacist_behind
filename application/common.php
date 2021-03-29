@@ -10,3 +10,33 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+function checkUser($limit)
+{
+    $res = array();
+    if (!isset($_COOKIE[session_name()])) { {
+            $result = array(
+                'data' => null,
+                'code' => 4,
+                'msg' => "未登录，无操作权限"
+            );
+        }
+        $res[] = false;
+        $res[] = $result;
+        return $res;
+    }
+    // 权限验证
+    Session_start();
+    $sessionData = $_SESSION['userInfo']['limit'];
+    if (!in_array($limit, explode(',', $sessionData))) {
+        $result = array(
+            'data' => null,
+            'code' => 5,
+            'msg' => "无操作权限"
+        );
+        $res[] = false;
+        $res[] = $result;
+        return $res;
+    }
+    $res[] = true;
+    return $res;
+}

@@ -8,12 +8,17 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
+// use think\Response;
+use \think\Request;
 // [ 应用入口文件 ]
+header("Access-Control-Allow-Origin:http://localhost:7000");
+header("Access-Control-Allow-Credentials:true");
+header("Access-Control-Allow-Methods:GET, POST, OPTIONS, DELETE");
+header("Access-Control-Allow-Headers:DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type, Accept-Language, Origin, Accept-Encoding");
+// if (request()->isOptions()) {
+//     exit();
+// }
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization");
-header('Access-Control-Allow-Methods: GET, POST, PUT,DELETE,OPTIONS,PATCH');
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/../application/');
 // 加载框架引导文件
