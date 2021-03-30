@@ -21,6 +21,8 @@ Route::rule('drug/count', 'index/drug.Index/getDrugCount');
 Route::rule('admin/drug/list', 'admin/drug.Index/getList');
 Route::rule('admin/drug/one', 'admin/drug.Index/getDrugByID');
 Route::rule('admin/drug/uploadDrugPicture', 'admin/drug.Index/uploadDrugPicture');
+Route::rule('admin/drug/add', 'admin/drug.Index/addDrug');
+
 
 // interaction
 Route::rule('interaction/list', 'index/interaction.Index/getList');
