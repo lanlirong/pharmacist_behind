@@ -17,11 +17,20 @@ Route::rule('drug/list', 'index/drug.Index/getList');
 Route::rule('drug/one', 'index/drug.Index/getDrugByID');
 Route::rule('drug/filterList', 'index/drug.Index/getFilterList');
 Route::rule('drug/count', 'index/drug.Index/getDrugCount');
-
+// admin-drug
 Route::rule('admin/drug/list', 'admin/drug.Index/getList');
 Route::rule('admin/drug/one', 'admin/drug.Index/getDrugByID');
-Route::rule('admin/drug/uploadDrugPicture', 'admin/drug.Index/uploadDrugPicture');
-Route::rule('admin/drug/add', 'admin/drug.Index/addDrug');
+// admin-addRaw
+Route::rule('admin/drug/uploadDrugPicture', 'admin/drug.AddRaw/uploadDrugPicture');
+Route::rule('admin/drug/addRaw', 'admin/drug.AddRaw/addRawDrug');
+Route::rule('admin/drug/deleteRawDrug', 'admin/drug.AddRaw/deleteRawDrug');
+Route::rule('admin/drug/myRawList', 'admin/drug.AddRaw/getList');
+
+// admin-check
+Route::rule('admin/drug/rawList', 'admin/drug.Check/getList');
+Route::rule('admin/drug/rawOne', 'admin/drug.Check/getDrugByID');
+Route::rule('admin/drug/check', 'admin/drug.Check/checkDrug');
+
 
 
 // interaction
