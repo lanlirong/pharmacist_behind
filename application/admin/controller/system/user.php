@@ -10,13 +10,7 @@ class User extends Controller
 {
     public function login()
     {
-        header("Access-Control-Allow-Origin:http://localhost:7000");
-        header("Access-Control-Allow-Credentials:true");
-        header("Access-Control-Allow-Methods:GET, POST, OPTIONS, DELETE");
-        header("Access-Control-Allow-Headers:DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type, Accept-Language, Origin, Accept-Encoding");
-        if (request()->isOptions()) {
-            exit();
-        }
+
         $body = file_get_contents('php://input');
         $params = json_decode($body);
         $username =  $params->username;

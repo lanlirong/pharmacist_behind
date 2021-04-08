@@ -68,13 +68,6 @@ class AddRaw extends Controller
     }
     public function addRawDrug()
     {
-        header("Access-Control-Allow-Origin:http://localhost:7000");
-        header("Access-Control-Allow-Credentials:true");
-        header("Access-Control-Allow-Methods:GET, POST, OPTIONS, DELETE");
-        header("Access-Control-Allow-Headers:DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type, Accept-Language, Origin, Accept-Encoding");
-        if (request()->isOptions()) {
-            exit();
-        }
         $check = checkUser('9');
         if (!$check[0]) {
             echo json_encode($check[1], JSON_UNESCAPED_UNICODE);
