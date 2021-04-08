@@ -72,11 +72,14 @@ Route::rule('admin/article/addRaw', 'admin/article.AddRaw/addRaw');
 Route::rule('admin/article/updateRaw', 'admin/article.AddRaw/updateRaw');
 Route::rule('admin/article/deleteRaw', 'admin/article.AddRaw/deleteRaw');
 Route::rule('admin/article/myRawList', 'admin/article.AddRaw/getMyRawList');
+Route::rule('admin/article/uploadPicture', 'admin/article.AddRaw/uploadPicture');
+
 
 // admin-check
 Route::rule('admin/article/rawList', 'admin/article.Check/getRawList');
 Route::rule('admin/article/rawOne', 'admin/article.Check/getCheckByID');
 Route::rule('admin/article/check', 'admin/article.Check/check');
+
 /* 
     system
 */

@@ -33,13 +33,13 @@ class AddRaw extends Controller
     public function uploadDrugPicture()
     {
 
-        header("Access-Control-Allow-Origin:http://localhost:7000");
-        header("Access-Control-Allow-Credentials:true");
-        header("Access-Control-Allow-Methods:GET, POST, OPTIONS, DELETE");
-        header("Access-Control-Allow-Headers:DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type, Accept-Language, Origin, Accept-Encoding");
-        if (request()->isOptions()) {
-            exit();
-        }
+        // header("Access-Control-Allow-Origin:http://localhost:7000");
+        // header("Access-Control-Allow-Credentials:true");
+        // header("Access-Control-Allow-Methods:GET, POST, OPTIONS, DELETE");
+        // header("Access-Control-Allow-Headers:DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type, Accept-Language, Origin, Accept-Encoding");
+        // if (request()->isOptions()) {
+        //     exit();
+        // }
         $check = checkUser('9');
         if (!$check[0]) {
             echo json_encode($check[1], JSON_UNESCAPED_UNICODE);
@@ -81,7 +81,7 @@ class AddRaw extends Controller
         }
         // 图片路径处理
         if ($params->isNew == 1 && $params->pictureChange  || $params->isNew == 0 && $params->pictureChange) {
-            $picture = '/upload/rowDrug/' . $_SESSION['uploadDrugName'];
+            $picture = '/upload/rawDrug/' . $_SESSION['uploadDrugName'];
         } else if ($params->isNew == 0 && !$params->pictureChange) {
             $url = 'http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER["SERVER_PORT"] . '/static';
             $picture = substr($params->picture, strrpos($params->picture, $url) + strlen($url));

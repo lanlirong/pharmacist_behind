@@ -33,16 +33,17 @@ class AddRaw extends Controller
         $params->updateTime  = $params->createTime;
         $params->creator  =  $_SESSION['userInfo']['username'];
 
+        $imgUrls = $params->imgUrls;
+
+        for ($i = 0; $i < count($imgUrls); $i++) {
+            rename(ROOT_PATH . 'public/static/upload/tempArticle/' . $imgUrls[$i], ROOT_PATH . 'public/static/upload/article/' . $imgUrls[$i]);
+        }
+        $params->content = str_replace('/static/upload/tempArticle/', '/static/upload/article/', $params->content);
+
         $raw_article = new Raw_articleM($params);
         $raw_article->allowField(true)->save();
-        // $isId = $this->checkRawById($params->id);
-        // if ($isId) { // 从已有库中新增审核记录
-        //     $params->isNew = $isId;
-        // }
-        // $params->id = null;
-        // $raw_article = new Raw_articleM($params);
-        // $raw_article->allowField(true)->save();
         $result = array(
+            'test' => $_SESSION['uploadArticleName'],
             'data' => null,
             'code' => 1,
             'msg' => "数据提交成功"
@@ -60,13 +61,17 @@ class AddRaw extends Controller
         $params = json_decode($body);
         $params->updateTime = date('Y-m-d H:i:s', time());
         $params->status = 0;
+        $imgUrls = $params->imgUrls;
+        for ($i = 0; $i < count($imgUrls); $i++) {
+            rename(ROOT_PATH . 'public/static/upload/tempArticle/' . $imgUrls[$i], ROOT_PATH . 'public/static/upload/article/' . $imgUrls[$i]);
+        }
+        $params->content = str_replace('/static/upload/tempArticle/', '/static/upload/article/', $params->content);
+
 
         $isId = $this->checkRawById($params->id);
         if ($isId) { // 从已有库中新增审核记录
             $params->isNew = $isId;
             $params->id = null;
-            // $params->createTime = date('Y-m-d H:i:s', time());
-            // $params->updateTime  = date('Y-m-d H:i:s', time());
             $params->creator = $_SESSION['userInfo']['username'];
             $raw_article = new Raw_articleM($params);
             $raw_article->allowField(true)->save();
@@ -130,6 +135,35 @@ class AddRaw extends Controller
             'code' => 1,
             'msg' => "删除成功"
         );
+        echo json_encode($result, JSON_UNESCAPED_UNICODE);
+    }
+    public function uploadPicture()
+    {
+        $check = checkUser('11');
+        if (!$check[0]) {
+            echo json_encode($check[1], JSON_UNESCAPED_UNICODE);
+            return;
+        }
+        $file = $_FILES['file'];
+        if (($file['type'] == "image/jpeg" || $file['type'] == "image/png") && $file['size'] <= 10 * 1024 * 1024) {
+            $fileName = $_SESSION['userInfo']['id'] . time()  . 'article.jpg';
+            rename($file['tmp_name'], ROOT_PATH . 'public/static/upload/tempArticle/' . $fileName);
+
+            $url = 'http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER["SERVER_PORT"] . '/static';
+            $picture = '/upload/tempArticle/' . $fileName;
+            $result = array(
+                'fileName' =>  $fileName,
+                'data' =>  $url . $picture,
+                'code' => 1,
+                'msg' => "上传成功"
+            );
+        } else {
+            $result = array(
+                'data' => false,
+                'code' => 1,
+                'msg' => "上传失败"
+            );
+        }
         echo json_encode($result, JSON_UNESCAPED_UNICODE);
     }
 }
