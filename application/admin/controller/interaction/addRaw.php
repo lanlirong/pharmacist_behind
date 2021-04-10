@@ -1,17 +1,18 @@
 <?php
 
-namespace app\admin\controller\disease;
+namespace app\admin\controller\interaction;
 
 use think\Controller;
-use app\admin\model\disease\Disease as DiseaseM;
-use app\admin\model\disease\Raw_disease as Raw_DiseaseM;
+use app\admin\model\interaction\Interaction as InteractionM;
+use app\admin\model\interaction\Raw_interaction as Raw_InteractionM;
 
 class AddRaw extends Controller
 {
-    private function checkRaw($name)
+    private function checkRaw($name, $interaction)
     {
-        $DiseaseM = new DiseaseM();
-        $Disease = $DiseaseM->where('name', $name)->find();
+        $InteractionM = new InteractionM();
+        $sql = "name = '" . $name . "' and interaction = '" . $interaction . "'";
+        $Disease = $InteractionM->where($sql)->find();
         if ($Disease) {
             return $Disease->id;
         } else {
@@ -20,7 +21,7 @@ class AddRaw extends Controller
     }
     public function addRaw()
     {
-        $check = checkUser('16');
+        $check = checkUser('21');
         if (!$check[0]) {
             echo json_encode($check[1], JSON_UNESCAPED_UNICODE);
             return;
@@ -33,7 +34,7 @@ class AddRaw extends Controller
         $params->updateTime  = $params->createTime;
         $params->creator  =  $_SESSION['userInfo']['username'];
 
-        $raw_disease = new Raw_DiseaseM($params);
+        $raw_disease = new Raw_InteractionM($params);
         $raw_disease->allowField(true)->save();
         $result = array(
             'data' => null,
@@ -54,16 +55,16 @@ class AddRaw extends Controller
         $params->updateTime = date('Y-m-d H:i:s', time());
         $params->status = 0;
 
-        $isId = $this->checkRaw($params->name);
+        $isId = $this->checkRaw($params->name, $params->interaction);
         if ($isId) { // 从已有库中新增审核记录
             $params->isNew = $isId;
             // unset($params->id);;
             unset($params->id);
             $params->creator = $_SESSION['userInfo']['username'];
-            $raw_disease = new Raw_DiseaseM($params);
+            $raw_disease = new Raw_InteractionM($params);
             $raw_disease->allowField(true)->save();
         } else {
-            $raw_disease = new Raw_DiseaseM();
+            $raw_disease = new Raw_InteractionM();
             $raw_disease->allowField(true)->save($params, ['id' => $params->id]);
         }
         $result = array(
@@ -90,8 +91,8 @@ class AddRaw extends Controller
             $order = "convert({$params->orderType} using gbk) COLLATE gbk_chinese_ci {$params->order}";
         }
 
-        $Raw_DiseaseM = new Raw_DiseaseM();
-        $list = $Raw_DiseaseM->where('creator', $_SESSION['userInfo']['username'])->where($sql)->where($sql2)->order($order)->paginate($params->size, false, [
+        $Raw_InteractionM = new Raw_InteractionM();
+        $list = $Raw_InteractionM->where('creator', $_SESSION['userInfo']['username'])->where($sql)->where($sql2)->order($order)->paginate($params->size, false, [
             'page' =>  $params->page,
         ]);
 
@@ -116,7 +117,7 @@ class AddRaw extends Controller
             echo json_encode($result, JSON_UNESCAPED_UNICODE);
             return;
         }
-        Raw_DiseaseM::where('id', $params['id'])->delete();
+        Raw_InteractionM::where('id', $params['id'])->delete();
         $result = array(
             'data' => null,
             'code' => 1,

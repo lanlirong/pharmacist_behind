@@ -32,11 +32,12 @@ Route::rule('admin/drug/uploadDrugPicture', 'admin/drug.AddRaw/uploadDrugPicture
 Route::rule('admin/drug/addRaw', 'admin/drug.AddRaw/addRawDrug');
 Route::rule('admin/drug/deleteRawDrug', 'admin/drug.AddRaw/deleteRawDrug');
 Route::rule('admin/drug/myRawList', 'admin/drug.AddRaw/getList');
-
 // admin-check
 Route::rule('admin/drug/rawList', 'admin/drug.Check/getList');
 Route::rule('admin/drug/rawOne', 'admin/drug.Check/getDrugByID');
 Route::rule('admin/drug/check', 'admin/drug.Check/checkDrug');
+
+
 
 /* 
     interaction
@@ -44,6 +45,23 @@ Route::rule('admin/drug/check', 'admin/drug.Check/checkDrug');
 Route::rule('interaction/list', 'index/interaction.Index/getList');
 Route::rule('interaction/one', 'index/interaction.Index/getOne');
 Route::rule('interaction/count', 'index/interaction.Index/getInteractionCount');
+// admin-disease
+Route::rule('admin/interaction/list', 'admin/interaction.Index/getList');
+Route::rule('admin/interaction/one', 'admin/interaction.Index/getOneByID');
+Route::rule('admin/interaction/update', 'admin/interaction.Index/update');
+Route::rule('admin/interaction/deleteOne', 'admin/interaction.Index/deleteOne');
+// admin-addRaw
+Route::rule('admin/interaction/addRaw', 'admin/interaction.AddRaw/addRaw');
+Route::rule('admin/interaction/updateRaw', 'admin/interaction.AddRaw/updateRaw');
+Route::rule('admin/interaction/deleteRaw', 'admin/interaction.AddRaw/deleteRaw');
+Route::rule('admin/interaction/myRawList', 'admin/interaction.AddRaw/getMyRawList');
+// admin-check
+Route::rule('admin/interaction/rawList', 'admin/interaction.Check/getRawList');
+Route::rule('admin/interaction/rawOne', 'admin/interaction.Check/getCheckByID');
+Route::rule('admin/interaction/check', 'admin/interaction.Check/check');
+
+
+
 /* 
   disease  
 */
@@ -55,19 +73,19 @@ Route::rule('admin/disease/list', 'admin/disease.Index/getList');
 Route::rule('admin/disease/one', 'admin/disease.Index/getOneByID');
 Route::rule('admin/disease/update', 'admin/disease.Index/update');
 Route::rule('admin/disease/deleteOne', 'admin/disease.Index/deleteOne');
-
 // admin-addRaw
 Route::rule('admin/disease/addRaw', 'admin/disease.AddRaw/addRaw');
 Route::rule('admin/disease/updateRaw', 'admin/disease.AddRaw/updateRaw');
 Route::rule('admin/disease/deleteRaw', 'admin/disease.AddRaw/deleteRaw');
 Route::rule('admin/disease/myRawList', 'admin/disease.AddRaw/getMyRawList');
 Route::rule('admin/disease/uploadPicture', 'admin/disease.AddRaw/uploadPicture');
-
-
 // admin-check
 Route::rule('admin/disease/rawList', 'admin/disease.Check/getRawList');
 Route::rule('admin/disease/rawOne', 'admin/disease.Check/getCheckByID');
 Route::rule('admin/disease/check', 'admin/disease.Check/check');
+
+
+
 /* 
     consult
 */
@@ -76,27 +94,27 @@ Route::rule('consult/one', 'index/consult.Index/getOne');
 Route::rule('consult/count', 'index/consult.Index/getConsultCount');
 Route::rule('consult/books', 'index/consult.Index/getBooks');
 
+
 /* 
     article
 */
+
 // admin-article
 Route::rule('admin/article/list', 'admin/article.Index/getList');
 Route::rule('admin/article/one', 'admin/article.Index/getOneByID');
 Route::rule('admin/article/update', 'admin/article.Index/update');
 Route::rule('admin/article/deleteOne', 'admin/article.Index/deleteOne');
-
 // admin-addRaw
 Route::rule('admin/article/addRaw', 'admin/article.AddRaw/addRaw');
 Route::rule('admin/article/updateRaw', 'admin/article.AddRaw/updateRaw');
 Route::rule('admin/article/deleteRaw', 'admin/article.AddRaw/deleteRaw');
 Route::rule('admin/article/myRawList', 'admin/article.AddRaw/getMyRawList');
 Route::rule('admin/article/uploadPicture', 'admin/article.AddRaw/uploadPicture');
-
-
 // admin-check
 Route::rule('admin/article/rawList', 'admin/article.Check/getRawList');
 Route::rule('admin/article/rawOne', 'admin/article.Check/getCheckByID');
 Route::rule('admin/article/check', 'admin/article.Check/check');
+
 
 /* 
     system

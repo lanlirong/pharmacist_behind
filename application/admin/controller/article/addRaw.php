@@ -8,10 +8,10 @@ use app\admin\model\article\Raw_article as Raw_articleM;
 
 class AddRaw extends Controller
 {
-    private function checkRawById($id)
+    private function checkRaw($title)
     {
         $articleM = new ArticleM();
-        $article = $articleM->where('id', $id)->find();
+        $article = $articleM->where('title', $title)->find();
         if ($article) {
             return $article->id;
         } else {
@@ -68,7 +68,7 @@ class AddRaw extends Controller
         $params->content = str_replace('/static/upload/tempArticle/', '/static/upload/article/', $params->content);
 
 
-        $isId = $this->checkRawById($params->id);
+        $isId = $this->checkRaw($params->title);
         if ($isId) { // 从已有库中新增审核记录
             $params->isNew = $isId;
             unset($params->id);;
