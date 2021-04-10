@@ -10,10 +10,10 @@ class AddRaw extends Controller
 {
     private function checkRawById($id)
     {
-        $Raw_articleM = new Raw_articleM();
-        $drug = $Raw_articleM->where('id', $id)->find();
-        if ($drug) {
-            return $drug->id;
+        $articleM = new ArticleM();
+        $article = $articleM->where('id', $id)->find();
+        if ($article) {
+            return $article->id;
         } else {
             return false;
         }
@@ -71,7 +71,7 @@ class AddRaw extends Controller
         $isId = $this->checkRawById($params->id);
         if ($isId) { // 从已有库中新增审核记录
             $params->isNew = $isId;
-            $params->id = null;
+            unset($params->id);;
             $params->creator = $_SESSION['userInfo']['username'];
             $raw_article = new Raw_articleM($params);
             $raw_article->allowField(true)->save();

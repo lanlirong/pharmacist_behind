@@ -104,7 +104,7 @@ class AddRaw extends Controller
                 $raw_indications->save();
             }
         } elseif (isset($params->id) && !$this->checkRawDrugById($params->id)) { // 从已有库中新增审核记录
-            $params->id = null;
+            unset($params->id);;
             $raw_drug = new Raw_drugM($params);
             $raw_drug->allowField(true)->save();
             $indications =  $params->mainDiseases;

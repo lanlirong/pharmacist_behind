@@ -4,6 +4,6 @@ namespace app\admin\model\consult;
 
 use think\Model;
 
-class Error extends Model
+class Raw_question extends Model
 {
 }

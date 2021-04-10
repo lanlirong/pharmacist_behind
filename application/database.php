@@ -15,11 +15,11 @@ return [
     // 服务器地址
     'hostname'        => '49.235.220.14',
     // 数据库名
-    'database'        => 'pharmacist',
+    'database'        => 'pharmacist_test',
     // 用户名
-    'username'        => 'pharmacist',
+    'username'        => 'pharmacist_test',
     // 密码
-    'password'        => 'SxMZ7SrPPmpzjBtC',
+    'password'        => 'EN2CNWXE3jtJN8N6',
     // 端口
     'hostport'        => '3306',
     // 连接dsn
