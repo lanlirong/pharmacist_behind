@@ -64,26 +64,26 @@ class User extends Controller
         );
         echo json_encode($result, JSON_UNESCAPED_UNICODE);
     }
-    public function getList()
-    {
-        $body = file_get_contents('php://input');
-        $params = json_decode($body);
-        $sql = "{$params->type} = '%{$params->searchKey}%'";
-        if ($params->orderType == "") {
-            $order = "";
-        } else {
-            $order = "convert({$params->orderType} using gbk) COLLATE gbk_chinese_ci {$params->order}";
-        }
+    // public function getList()
+    // {
+    //     $body = file_get_contents('php://input');
+    //     $params = json_decode($body);
+    //     $sql = "{$params->type} = '%{$params->searchKey}%'";
+    //     if ($params->orderType == "") {
+    //         $order = "";
+    //     } else {
+    //         $order = "convert({$params->orderType} using gbk) COLLATE gbk_chinese_ci {$params->order}";
+    //     }
 
-        $AdminUserM = new AdminUserM();
-        $list = $AdminUserM->where($sql)->order($order)->paginate($params->size, false, [
-            'page' =>  $params->page,
-        ]);
-        $result = array(
-            'data' => $list,
-            'code' => 1,
-            'msg' => "登录成功"
-        );
-        echo json_encode($result, JSON_UNESCAPED_UNICODE);
-    }
+    //     $AdminUserM = new AdminUserM();
+    //     $list = $AdminUserM->where($sql)->order($order)->paginate($params->size, false, [
+    //         'page' =>  $params->page,
+    //     ]);
+    //     $result = array(
+    //         'data' => $list,
+    //         'code' => 1,
+    //         'msg' => "登录成功"
+    //     );
+    //     echo json_encode($result, JSON_UNESCAPED_UNICODE);
+    // }
 }

@@ -137,7 +137,10 @@ Route::rule('admin/article/check', 'admin/article.Check/check');
 Route::rule('admin/login', 'admin/system.User/login');
 Route::rule('admin/logout', 'admin/system.User/logout');
 
-Route::rule('admin/adminuser/list', 'admin/system.User/getList');
+Route::rule('admin/adminuser/list', 'admin/system.Index/getList');
+Route::rule('admin/adminuser/one', 'admin/article.Index/getOneByID');
+Route::rule('admin/adminuser/update', 'admin/article.Index/update');
+Route::rule('admin/adminuser/deleteOne', 'admin/article.Index/deleteOne');
 
 
 
