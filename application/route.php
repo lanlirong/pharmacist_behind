@@ -113,7 +113,9 @@ Route::rule('admin/consult/check', 'admin/consult.Check/check');
 /* 
     article
 */
-
+Route::rule('science/list', 'index/science.Index/getList');
+Route::rule('science/one', 'index/science.Index/getOne');
+Route::rule('science/count', 'index/science.Index/getArticleCount');
 // admin-article
 Route::rule('admin/article/list', 'admin/article.Index/getList');
 Route::rule('admin/article/one', 'admin/article.Index/getOneByID');

@@ -37,7 +37,7 @@ class Check extends Controller
         }
 
         $Raw_ArticleM = new Raw_ArticleM();
-        $list = $Raw_ArticleM->where($sql2)->where($sql)->where($sql3)->order($order)->field('id, title,isNew, status, createTime, updateTime, reviewer, creator')->paginate($params->size, false, [
+        $list = $Raw_ArticleM->where($sql2)->where($sql)->where($sql3)->order($order)->field('id,description, title,isNew, status, createTime, updateTime, reviewer, creator')->paginate($params->size, false, [
             'page' =>  $params->page,
         ]);
 

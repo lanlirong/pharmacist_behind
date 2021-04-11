@@ -25,7 +25,7 @@ class Index extends Controller
         }
 
         $ArticleM = new ArticleM();
-        $list = $ArticleM->where($sql)->order($order)->field('id, title, createTime, updateTime, reviewer, creator')->paginate($params->size, false, [
+        $list = $ArticleM->where($sql)->order($order)->field('id, title,description, createTime, updateTime, reviewer, creator')->paginate($params->size, false, [
             'page' =>  $params->page,
         ]);
 
@@ -90,30 +90,6 @@ class Index extends Controller
             'msg' => "删除成功"
         );
         echo json_encode($result, JSON_UNESCAPED_UNICODE);
-    }
-    public function update()
-    {
-        // $check = checkUser('11');
-        // if (!$check[0]) {
-        //     echo json_encode($check[1], JSON_UNESCAPED_UNICODE);
-        //     return;
-        // }
-        // $body = file_get_contents('php://input');
-        // $params = json_decode($body);
-        // // $ArticleM = new ArticleM();
-        // // $article = $ArticleM->where('id', $params->id)->find();
-        // $article->is
-
-        // $params->updateTime = date('Y-m-d H:i:s', time());
-        // $params->status = 0;
-        // $raw_article = new Raw_articleM();
-        // $raw_article->allowField(true)->save($params, ['id' => $params->id]);
-        // $result = array(
-        //     'data' => null,
-        //     'code' => 1,
-        //     'msg' => "数据修改成功"
-        // );
-        // echo json_encode($result, JSON_UNESCAPED_UNICODE);
     }
     public function getCount()
     {

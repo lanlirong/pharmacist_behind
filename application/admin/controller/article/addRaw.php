@@ -43,7 +43,7 @@ class AddRaw extends Controller
         $raw_article = new Raw_articleM($params);
         $raw_article->allowField(true)->save();
         $result = array(
-            'test' => $_SESSION['uploadArticleName'],
+            // 'test' => $_SESSION['uploadArticleName'],
             'data' => null,
             'code' => 1,
             'msg' => "数据提交成功"
