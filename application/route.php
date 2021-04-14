@@ -114,6 +114,7 @@ Route::rule('admin/consult/check', 'admin/consult.Check/check');
     article
 */
 Route::rule('science/list', 'index/science.Index/getList');
+Route::rule('science/hotList', 'index/science.Index/getHotList');
 Route::rule('science/one', 'index/science.Index/getOne');
 Route::rule('science/count', 'index/science.Index/getArticleCount');
 // admin-article
@@ -134,6 +135,29 @@ Route::rule('admin/article/check', 'admin/article.Check/check');
 
 
 /* 
+    User
+*/
+Route::rule('user/checkUsername', 'index/user.Index/checkUsername');
+Route::rule('user/checkPhone', 'index/user.Index/checkPhone');
+Route::rule('user/checkEmail', 'index/user.Index/checkEmail');
+
+Route::rule('user/register', 'index/user.Index/register');
+Route::rule('user/login', 'index/user.Index/login');
+Route::rule('user/logout', 'index/user.Index/logout');
+Route::rule('user/editMyInfo', 'index/user.Index/editMyInfo');
+Route::rule('user/sendUserMsg', 'index/user.Service/sendUserMsg');
+Route::rule('user/getMsgList', 'index/user.Service/getMsgList');
+
+
+// admin-User
+Route::rule('admin/User/list', 'admin/User.Index/getList');
+Route::rule('admin/User/one', 'admin/User.Index/getOneByID');
+Route::rule('admin/User/update', 'admin/User.Index/update');
+Route::rule('admin/User/deleteOne', 'admin/User.Index/deleteOne');
+
+
+
+/* 
     system
 */
 Route::rule('admin/login', 'admin/system.User/login');
@@ -144,6 +168,8 @@ Route::rule('admin/adminuser/one', 'admin/article.Index/getOneByID');
 Route::rule('admin/adminuser/update', 'admin/article.Index/update');
 Route::rule('admin/adminuser/deleteOne', 'admin/article.Index/deleteOne');
 
+
+Route::rule('simpleSearch/list', 'index/common.Index/getSimpleList');
 
 
 

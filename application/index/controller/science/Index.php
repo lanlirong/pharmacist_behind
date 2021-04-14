@@ -31,6 +31,19 @@ class Index extends Controller
         );
         echo json_encode($result, JSON_UNESCAPED_UNICODE);
     }
+    public function getHotList()
+    {
+        $params = input('param.');
+        $ArticleM = new ArticleM();
+
+        $article = $ArticleM->order('id', 'desc')->limit(6)->select();
+        $result = array(
+            'data' => $article,
+            'code' => 1,
+            'msg' => "查询成功"
+        );
+        echo json_encode($result, JSON_UNESCAPED_UNICODE);
+    }
     public function getOne()
     {
         $params = input('param.');
