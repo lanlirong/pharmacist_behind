@@ -1,12 +1,12 @@
 <?php
 
-namespace app\admin\controller\drug;
+namespace app\index\controller\drug;
 
 use think\Controller;
-use app\admin\model\drug\Drug as DrugM;
-use app\admin\model\drug\Raw_drug as Raw_drugM;
-// use app\admin\model\drug\Indications as IndicationsM;
-use app\admin\model\drug\Raw_indications as Raw_indicationsM;
+use app\index\model\drug\Drug as DrugM;
+use app\index\model\drug\Raw_drug as Raw_drugM;
+// use app\index\model\drug\Indications as IndicationsM;
+use app\index\model\drug\Raw_indications as Raw_indicationsM;
 
 class AddRaw extends Controller
 {
