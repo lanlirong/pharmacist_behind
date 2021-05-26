@@ -49,7 +49,7 @@ class Service extends Controller
         } else {
             $result = array(
                 'data' =>  null,
-                'code' => 1,
+                'code' => 4,
                 'msg' => "未登录"
             );
             echo json_encode($result, JSON_UNESCAPED_UNICODE);

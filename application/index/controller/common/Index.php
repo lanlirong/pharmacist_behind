@@ -16,10 +16,11 @@ class Index extends Controller
         $DiseaseM = new DiseaseM();
         $Disease = $DiseaseM->where('name', $params->searchKey)->find();
         $DrugM = new DrugM();
-        $Drug = $DrugM->where('drug_name', $params->searchKey)->find();
+        $sql = "drug_name like '%" . $params->searchKey . "%'";
+        $Drug = $DrugM->where($sql)->find();
 
         $list = array("drug" => "", "disease" => "");
-        if ($Drug) $list['drug'] = $Drug->id;
+        if ($Drug) $list['drug'] = true;
         if ($Disease) $list['disease'] = $Disease->id;
 
         $result = array(

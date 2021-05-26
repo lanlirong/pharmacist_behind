@@ -171,7 +171,12 @@ Route::rule('admin/adminuser/deleteOne', 'admin/article.Index/deleteOne');
 
 Route::rule('simpleSearch/list', 'index/common.Index/getSimpleList');
 
+/*
+post
 
+*/
+Route::rule('post/publish', 'index/post.Index/publish');
+Route::rule('post/list', 'index/post.Index/getList');
 
 return [
     '__pattern__' => [
