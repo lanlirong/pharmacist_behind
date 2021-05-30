@@ -145,6 +145,8 @@ Route::rule('user/register', 'index/user.Index/register');
 Route::rule('user/login', 'index/user.Index/login');
 Route::rule('user/logout', 'index/user.Index/logout');
 Route::rule('user/editMyInfo', 'index/user.Index/editMyInfo');
+Route::rule('user/editAvatar', 'index/user.Index/editAvatar');
+
 Route::rule('user/sendUserMsg', 'index/user.Service/sendUserMsg');
 Route::rule('user/getMsgList', 'index/user.Service/getMsgList');
 
@@ -177,6 +179,7 @@ post
 */
 Route::rule('post/publish', 'index/post.Index/publish');
 Route::rule('post/list', 'index/post.Index/getList');
+Route::rule('post/getComment', 'index/post.Index/getComment');
 
 return [
     '__pattern__' => [

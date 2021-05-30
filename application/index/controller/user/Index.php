@@ -11,14 +11,20 @@ class Index extends Controller
 
     public function register()
     {
-        $body = file_get_contents('php://input');
-        $params = json_decode($body);
-        $params->createTime = date('Y-m-d H:i:s', time());
-        $params->updateTime  = $params->createTime;
-        $user = new UserM($params);
+        $body = $_POST;
+        $file = $_FILES['avatar'];
+        if (($file['type'] == "image/jpeg" || $file['type'] == "image/png") && $file['size'] <= 10 * 1024 * 1024) {
+            $fileName = $body['username'] . '.jpg';
+            rename($file['tmp_name'], ROOT_PATH . 'public/static/upload/avatar/' . $fileName);
+            $body['avatar'] = '/upload/avatar/' .  $fileName;
+        }
+
+        $body['createTime'] = date('Y-m-d H:i:s', time());
+        $body['updateTime'] =  $body['createTime'];
+        $user = new UserM($body);
         $user->allowField(true)->save();
         $result = array(
-            'data' => null,
+            'data' => $body,
             'code' => 1,
             'msg' => "注册成功"
         );
@@ -38,8 +44,8 @@ class Index extends Controller
                 'username' => $user->username,
             ];
             setcookie(session_name(), $sessionId, time() + 3600 * 24, '/'); // 24h后失效
+            $user->avatar = getWholeImgUrl($user->avatar);
             $result = array(
-                'test' =>  $sessionId,
                 'data' => $user,
                 'code' => 1,
                 'msg' => "登录成功"
@@ -65,6 +71,39 @@ class Index extends Controller
             'data' => null,
             'code' => 1,
             'msg' => "退出登录成功"
+        );
+        echo json_encode($result, JSON_UNESCAPED_UNICODE);
+    }
+    public function editAvatar()
+    {
+        $file = $_FILES['avatar'];
+        $params = array();
+        if (($file['type'] == "image/jpeg" || $file['type'] == "image/png") && $file['size'] <= 10 * 1024 * 1024) {
+            Session_start();
+            if (array_key_exists("index_user", $_SESSION)) {
+                $username = $_SESSION['index_user']['username'];
+                $id = $_SESSION['index_user']['id'];
+                $fileName = $username . '.jpg';
+                rename($file['tmp_name'], ROOT_PATH . 'public/static/upload/avatar/' . $fileName);
+                $params['avatar'] = '/upload/avatar/' .  $fileName;
+            } else {
+                $result = array(
+                    'data' =>  null,
+                    'code' => 4,
+                    'msg' => "未登录"
+                );
+                echo json_encode($result, JSON_UNESCAPED_UNICODE);
+                return;
+            }
+        }
+
+        $params['updateTime'] =  date('Y-m-d H:i:s', time());
+        $user = new UserM();
+        $user->save($params, ['id' => $id]);
+        $result = array(
+            'data' => getWholeImgUrl($params['avatar']),
+            'code' => 1,
+            'msg' => "修改成功"
         );
         echo json_encode($result, JSON_UNESCAPED_UNICODE);
     }

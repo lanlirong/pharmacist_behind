@@ -56,3 +56,8 @@ function Get8Str($len)
     }
     return $outputstr;
 }
+function getWholeImgUrl($relativeUrl)
+{
+    $url = 'http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER["SERVER_PORT"] . '/static';
+    return  $url . $relativeUrl;
+}
