@@ -180,6 +180,12 @@ post
 Route::rule('post/publish', 'index/post.Index/publish');
 Route::rule('post/list', 'index/post.Index/getList');
 Route::rule('post/getComment', 'index/post.Index/getComment');
+Route::rule('post/changeLike', 'index/post.Index/changeLike');
+Route::rule('post/addComment', 'index/post.Index/addComment');
+Route::rule('post/deleteComment', 'index/post.Index/deleteComment');
+Route::rule('post/replyComment', 'index/post.Index/replyComment');
+Route::rule('post/getDetail', 'index/post.Index/getDetail');
+
 
 return [
     '__pattern__' => [
