@@ -1,6 +1,6 @@
 <?php
 
-namespace app\index\model\post;
+namespace app\admin\model\community;
 
 use think\Model;
 

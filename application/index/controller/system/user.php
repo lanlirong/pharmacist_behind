@@ -40,7 +40,7 @@ class User extends Controller
             ];
             setcookie(session_name(), $sessionId, time() + 3600 * 24, '/'); // 24h后失效
             // unset($user->password);
-            $user->avator = 'http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER["SERVER_PORT"] . '/static' . $user->avator;
+            $user->avatar = 'http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER["SERVER_PORT"] . '/static' . $user->avatar;
             $result = array(
                 'data' => $user,
                 'code' => 1,

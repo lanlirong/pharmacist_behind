@@ -3,7 +3,7 @@
 namespace app\index\controller\post;
 
 use think\Controller;
-use app\index\model\post\post as PostM;
+use app\index\model\post\Post as PostM;
 use app\index\model\user\Index_user as UserM;
 use app\index\model\post\Comment as CommentM;
 

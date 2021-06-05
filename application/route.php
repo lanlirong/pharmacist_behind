@@ -166,9 +166,9 @@ Route::rule('admin/login', 'admin/system.User/login');
 Route::rule('admin/logout', 'admin/system.User/logout');
 
 Route::rule('admin/adminuser/list', 'admin/system.Index/getList');
-Route::rule('admin/adminuser/one', 'admin/article.Index/getOneByID');
-Route::rule('admin/adminuser/update', 'admin/article.Index/update');
-Route::rule('admin/adminuser/deleteOne', 'admin/article.Index/deleteOne');
+Route::rule('admin/adminuser/one', 'admin/system.Index/getOneByID');
+Route::rule('admin/adminuser/update', 'admin/system.Index/update');
+Route::rule('admin/adminuser/deleteOne', 'admin/system.Index/deleteOne');
 
 
 Route::rule('simpleSearch/list', 'index/common.Index/getSimpleList');
@@ -186,6 +186,14 @@ Route::rule('post/deleteComment', 'index/post.Index/deleteComment');
 Route::rule('post/replyComment', 'index/post.Index/replyComment');
 Route::rule('post/getDetail', 'index/post.Index/getDetail');
 
+// admin-community
+Route::rule('admin/community/postlist', 'admin/community.Post/getList');
+Route::rule('admin/community/postone', 'admin/community.Post/getOneByID');
+Route::rule('admin/community/postdeleteOne', 'admin/community.Post/deleteOne');
+
+Route::rule('admin/community/commentlist', 'admin/community.Comment/getList');
+Route::rule('admin/community/commentone', 'admin/community.Comment/getOneByID');
+Route::rule('admin/community/commentdeleteOne', 'admin/community.Comment/deleteOne');
 
 return [
     '__pattern__' => [

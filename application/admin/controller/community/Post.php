@@ -1,15 +1,17 @@
 <?php
 
-namespace app\admin\controller\system;
+namespace app\admin\controller\community;
 
 use think\Controller;
-use app\admin\model\system\AdminUser as Admin_userM;
+use app\admin\model\community\Post as PostM;
+use app\index\model\user\Index_user as UserM;
 
-class Index extends Controller
+
+class Post extends Controller
 {
     public function getList()
     {
-        $check = checkUser('7');
+        $check = checkUser('28');
         if (!$check[0]) {
             echo json_encode($check[1], JSON_UNESCAPED_UNICODE);
             return;
@@ -24,15 +26,13 @@ class Index extends Controller
             $order = "convert({$params->orderType} using gbk) COLLATE gbk_chinese_ci {$params->order}";
         }
 
-        $Admin_userM = new Admin_userM();
-        $list = $Admin_userM->where($sql)->order($order)->paginate($params->size, false, [
+        $PostM = new PostM();
+        $list = $PostM->where($sql)->order($order)->paginate($params->size, false, [
             'page' =>  $params->page,
         ]);
-        for ($i = 0; $i < count($list); $i++) {
-            # code...
-            $list[$i]->avatar = 'http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER["SERVER_PORT"] . '/static' . $list[$i]->avatar;
-        }
-
+        $list->each(function ($item, $key) {
+            $item->username =  (UserM::get($item->userId))->username;
+        });
         $result = array(
             'data' => $list,
             'code' => 1,
@@ -51,8 +51,8 @@ class Index extends Controller
                 'msg' => "出现异常，id没有传值"
             );
         } else {
-            $Admin_userM = new Admin_userM();
-            $interaction = $Admin_userM->where('id', $params['id'])->find();
+            $PostM = new PostM();
+            $interaction = $PostM->where('id', $params['id'])->find();
             if ($interaction) {
                 $result = array(
                     'data' => $interaction,
@@ -72,7 +72,7 @@ class Index extends Controller
     }
     public function deleteOne()
     {
-        $check = checkUser('6');
+        $check = checkUser('29');
         if (!$check[0]) {
             echo json_encode($check[1], JSON_UNESCAPED_UNICODE);
             return;
@@ -87,22 +87,11 @@ class Index extends Controller
             echo json_encode($result, JSON_UNESCAPED_UNICODE);
             return;
         }
-        Admin_userM::where('id', $params['id'])->delete();
+        PostM::where('id', $params['id'])->delete();
         $result = array(
             'data' => null,
             'code' => 1,
             'msg' => "删除成功"
-        );
-        echo json_encode($result, JSON_UNESCAPED_UNICODE);
-    }
-    public function getCount()
-    {
-        $Admin_userM = new Admin_userM();
-        $count = $Admin_userM->count();
-        $result = array(
-            'data' => $count,
-            'code' => 1,
-            'msg' => "查询成功"
         );
         echo json_encode($result, JSON_UNESCAPED_UNICODE);
     }
