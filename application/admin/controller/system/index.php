@@ -4,6 +4,7 @@ namespace app\admin\controller\system;
 
 use think\Controller;
 use app\admin\model\system\AdminUser as Admin_userM;
+use app\admin\model\system\Limits as LimitsM;
 
 class Index extends Controller
 {
@@ -28,10 +29,6 @@ class Index extends Controller
         $list = $Admin_userM->where($sql)->order($order)->paginate($params->size, false, [
             'page' =>  $params->page,
         ]);
-        for ($i = 0; $i < count($list); $i++) {
-            # code...
-            $list[$i]->avatar = 'http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER["SERVER_PORT"] . '/static' . $list[$i]->avatar;
-        }
 
         $result = array(
             'data' => $list,
@@ -52,10 +49,22 @@ class Index extends Controller
             );
         } else {
             $Admin_userM = new Admin_userM();
-            $interaction = $Admin_userM->where('id', $params['id'])->find();
-            if ($interaction) {
+            $Admin_user = $Admin_userM->where('id', $params['id'])->find();
+            $Admin_user->avatar = 'http://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER["SERVER_PORT"] . '/static' . $Admin_user->avatar;
+            $limits = explode(',', $Admin_user->limit);
+            $temp = array();
+            for ($i = 0; $i < count($limits); $i++) {
+                $limitsM = (LimitsM::get((int)$limits[$i]));
+                if ($limitsM && $limitsM->name !== '') {
+                    // $limits[$i] = $limitsM->name;
+                    array_push($temp, $limitsM->name);
+                }
+            }
+            $Admin_user->limits = $temp;
+
+            if ($Admin_user) {
                 $result = array(
-                    'data' => $interaction,
+                    'data' => $Admin_user,
                     'code' => 1,
                     'msg' => "查询成功"
                 );
@@ -68,6 +77,34 @@ class Index extends Controller
             }
         }
 
+        echo json_encode($result, JSON_UNESCAPED_UNICODE);
+    }
+    public function add()
+    {
+        $check = checkUser('5');
+        if (!$check[0]) {
+            echo json_encode($check[1], JSON_UNESCAPED_UNICODE);
+            return;
+        }
+
+        $body = $_POST;
+        // $file = $_FILES['avatar'];
+        // if (($file['type'] == "image/jpeg" || $file['type'] == "image/png") && $file['size'] <= 10 * 1024 * 1024) {
+        //     $fileName = $body['username'] . '.jpg';
+        //     rename($file['tmp_name'], ROOT_PATH . 'public/static/upload/avatar/' . $fileName);
+        //     $body['avatar'] = '/upload/avatar/' .  $fileName;
+        // }
+
+        $body['createTime'] = date('Y-m-d H:i:s', time());
+        $body['updateTime'] =  $body['createTime'];
+        $body['creator']  =  $_SESSION['userInfo']['username'];
+        $Admin_user = new Admin_userM($body);
+        $Admin_user->allowField(true)->save();
+        $result = array(
+            'data' => $body,
+            'code' => 1,
+            'msg' => "新增成功"
+        );
         echo json_encode($result, JSON_UNESCAPED_UNICODE);
     }
     public function deleteOne()

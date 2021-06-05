@@ -168,8 +168,8 @@ Route::rule('admin/logout', 'admin/system.User/logout');
 Route::rule('admin/adminuser/list', 'admin/system.Index/getList');
 Route::rule('admin/adminuser/one', 'admin/system.Index/getOneByID');
 Route::rule('admin/adminuser/update', 'admin/system.Index/update');
+Route::rule('admin/adminuser/add', 'admin/system.Index/add');
 Route::rule('admin/adminuser/deleteOne', 'admin/system.Index/deleteOne');
-
 
 Route::rule('simpleSearch/list', 'index/common.Index/getSimpleList');
 
